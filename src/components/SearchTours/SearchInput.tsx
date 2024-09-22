@@ -13,7 +13,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
   const cancelTokenSource = useRef<any>(null);
 
   const fetchSuggestions = async (query: string) => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('authToken'); // Get token from localStorage
 
     if (cancelTokenSource.current) {
       cancelTokenSource.current.cancel('Cancelling previous request');
@@ -23,14 +23,14 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
     setLoading(true);
 
     try {
-      const response = await axios.get(`https://dev.intraversewebservices.com/api/main/v1/package/auto-complete?q=${query}`, {
+      const response = await axios.get(`https://dev.intraversewebservices.com/api/product/v1/package/auto-complete?q=${query}`, {
         cancelToken: cancelTokenSource.current.token,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      const { destinations } = response.data.data;
+      const { destinations } = response.data.data; // Extract destinations from response
       setSuggestions(destinations);
     } catch (error) {
       if (axios.isCancel(error)) {
@@ -55,12 +55,10 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
-
   const handleSuggestionClick = (destinationName: string) => {
     setSearchQuery(destinationName); // Set the input value to the selected destination
     setSuggestions([]); // Clear suggestions after selection
   };
-
   return (
     <div className="flex flex-col w-full leading-none max-w-[600px] max-md:max-w-full">
       <label htmlFor={label.toLowerCase()} className="text-sm text-zinc-500">
@@ -72,13 +70,15 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder={placeholder}
-        className="flex items-center py-0.5 pl-6 mt-2.5 w-full text-base rounded-lg border-2 border-solid border-zinc-300 text-zinc-400 max-md:pl-5 max-md:max-w-full"
+        className="flex items-center py-0.5 pl-6 mt-2.5 w-full font-big text-base rounded-lg border-2 border-solid border-zinc-300  max-md:pl-5 max-md:max-w-full"
       />
       {loading && <p>Loading suggestions...</p>}
       <ul className="mt-4">
         {suggestions.map((item, index) => (
-          <li key={index} className="p-2  cursor-pointer" onClick={() => handleSuggestionClick(item.destinationName)}>
-            <div className="font-bold">{item.destinationName}</div>
+          <li key={index} className="p-2 " onClick={() => handleSuggestionClick(item.destinationName)}>
+            <div className="">{item.destinationName} </div>
+            <div className="text-sm text-gray-500">
+            </div>
           </li>
         ))}
       </ul>
