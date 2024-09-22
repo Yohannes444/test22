@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchInput from './SearchInput';
 import DatePicker from './DatePicker';
-import SearchButton from './SearchButton';
 
 const SearchTours: React.FC = () => {
   return (
