@@ -75,6 +75,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
       {loading && <p>Loading suggestions...</p>}
       <ul className="mt-4">
         {suggestions.map((item, index) => (
+          
           <li key={index} className="p-2 " onClick={() => handleSuggestionClick(item.destinationName)}>
             <div className="">{item.destinationName} </div>
             {item.tags.map((tag:any, index:any) => (
