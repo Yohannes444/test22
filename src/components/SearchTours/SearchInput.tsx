@@ -78,7 +78,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ label, placeholder }) => {
           <li key={index} className="p-2 " onClick={() => handleSuggestionClick(item.destinationName)}>
             <div className="">{item.destinationName} </div>
             {item.tags.map((tag:any, index:any) => (
-              <div key={index} className="inline-block mb-2">
+              <div onClick={() => handleSuggestionClick(tag.tagName)} key={index} className="inline-block mb-2">
                 <p className="bg-green-400 text-white py-1 px-3 rounded-md shadow-md hover:bg-green-500 transition duration-300">
                   {tag.tagName}
                 </p>
